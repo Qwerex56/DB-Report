@@ -1,0 +1,19 @@
+Skalowanie
+==========
+Bazy danych SQL nie są tak kosztowne w rozbudowie, jak się powszechnie sądzi. Możliwe jest skalowanie ich wszerz, co przynosi wiele korzyści, zwłaszcza w kontekście analizy danych biznesowych. Firmy coraz bardziej interesują się analizą danych klientów pochodzących z różnych źródeł, co wymaga platform skalowalnych wszerz do przetwarzania dużych ilości danych w czasie rzeczywistym. Istnieje kilka opcji, takich jak bazy NoSQL, NewSQL czy platforma Hadoop, które mogą rozwiązać różne wyzwania związane z przetwarzaniem danych. Wdrożenie rozwiązania skalowalnego wszerz z odpowiednim balansem między pamięcią RAM a nośnikami flash może przynieść istotne korzyści, a nowa generacja skalowalnych baz SQL, takie jak InfiniSQL, ClustrixDB czy F1, pokazuje, że bazy SQL mogą być skalowalne wszerz.
+
+Analityka czasu rzeczywistego:
+------------------------------
+Analityka czasu rzeczywistego w branży Big Data skupia się obecnie na analizie danych w czasie rzeczywistym, co pozwala firmom uzyskać przewagę konkurencyjną i korzyści biznesowe. Istotnym elementem są skalowalne bazy danych SQL, które umożliwiają przetwarzanie danych operacyjnych w czasie rzeczywistym. Wykorzystanie metod przetwarzania kwerend w pamięci operacyjnej i macierzy dyskowych opartych na nośnikach SSD pozwala osiągnąć wysoką wydajność bez konieczności stosowania specjalistycznych rozwiązań. Firmy takie jak Google czy Facebook udowodniły, że bazy danych SQL są skutecznym narzędziem do przetwarzania danych, co może przyczynić się do ograniczenia kosztów zatrudniania specjalistów. Przykładowo, Google wykorzystuje bazę F1 SQL do usługi Adwords, co ułatwia tworzenie aplikacji do zadań OLTP i OLAP. Facebook również podkreśla znaczenie relacyjnych baz danych w analityce, co przekonało wielu do promowania rozszerzeń Hadoopa umożliwiających integrację z bazami SQL.
+
+Łatwa rozbudowa:
+----------------
+Bazy danych SQL typu scale out umożliwiają łatwą liniową skalowalność poprzez dodawanie nowych węzłów do klastra, nawet w trakcie intensywnego użytkowania. Ta operacja nie wymaga zmian w kodzie, aktualizacji bazy danych ani wymiany sprzętu obsługującego aplikację. Każdy nowy węzeł może przyjmować i przetwarzać transakcje wraz z rozszerzaniem klastra. Istotną cechą tych baz SQL jest możliwość przenoszenia kodu bazy danych do węzłów przechowujących dane, zamiast przenoszenia samych danych. Dzięki temu ogranicza się ilość danych przesyłanych wewnątrz klastra, co prowadzi do zmniejszenia nadmiernego ruchu w klastrze i umożliwia liniową skalowalność bazy danych. Ponadto zapewnia to, że tylko jeden węzeł jest odpowiedzialny za zapis danych w określonym zbiorze, co eliminuje problem konkurencyjnego dostępu do tych samych zasobów. W tradycyjnych bazach danych każde zadanie blokuje obszary danych, co przy dużej liczbie zadań konkurencyjnych prowadzi do spadku wydajności.
+
+Eliminacja wąskich gardeł:
+--------------------------
+W skalowalnych bazach danych SQL rozwiązano problem logu transakcyjnego, który często stanowił wąskie gardło. W tradycyjnych bazach danych wszystkie przetwarzane rekordy są zapisywane w logu transakcyjnym przed zakończeniem kwerendy. W przypadku błędnej konfiguracji lub awarii może to spowodować nadmierny wzrost logu transakcyjnego, który może przekroczyć rozmiar samej bazy danych. To z kolei prowadzi do spowolnienia operacji zapisu w bazie, nawet w przypadku użycia nośników SSD.
+
+Wysoka dostępność w chmurze:
+----------------------------
+Organizacje oczekują, że ich aplikacje produkcyjne będą zawsze dostępne, co zapewni ciągłość procesów biznesowych. W przypadku awarii chmury, która może się zdarzyć, istotne jest, aby firma mogła szybko przywrócić działanie bazy danych bez utraty danych. Skalowalne bazy danych SQL posiadają wbudowane funkcje wysokiej dostępności, które zapewniają przechowywanie kilku kopii danych, co minimalizuje ryzyko ich utraty.
