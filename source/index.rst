@@ -12,6 +12,11 @@ Welcome to sprawozdanie's documentation!
 
    rozdzialy/rozdzial1
    rozdzialy/rozdzial2
+   rozdzialy/rozdzial3
+   rozdzialy/rozdzial4
+   rozdzialy/rozdzial5
+   rozdzialy/rozdzial6
+   rozdzialy/rozdzial7
 
 
 
