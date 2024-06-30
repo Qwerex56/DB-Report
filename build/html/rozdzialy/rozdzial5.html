@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Replikacja &#8212; sprawozdanie 1.0 - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
+    <script src="../_static/documentation_options.js?v=331e28ce"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../genindex.html" />
+    <link rel="search" title="Szukaj" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="replikacja">
+<h1>Replikacja<a class="headerlink" href="#replikacja" title="Link to this heading">¶</a></h1>
+<p>Replikacja danych to metoda duplikowania informacji pomiędzy różnymi serwerami baz danych.
+Dzięki replikacji możemy:
+- Zwiększyć skalowalność – obciążenie można rozdzielić między wiele serwerów. Operacje takie jak zapisywanie i aktualizowanie rekordów są wykonywane na jednym serwerze, podczas gdy pobieranie i przeszukiwanie danych są realizowane na innym.
+- Poprawić bezpieczeństwo – poprzez replikację tworzymy kopię istniejącej bazy danych produkcyjnej. Choć nie zabezpieczy nas to przed operacjami typu DROP TABLE, może to być pomocne w przypadku awarii sprzętowej głównego serwera.
+- Ułatwić analizę – złożone operacje analityczne, różne przeliczenia i analizy statystyczne mogą być przeprowadzane na dedykowanym serwerze, bez obciążania głównej bazy danych.
+- Zapewnić separację – możemy udostępnić kopię bazy danych produkcyjnej dla programistów lub testerów, umożliwiając im pracę na kopii bazy.</p>
+<section id="mechanizmy-replikacji">
+<h2>Mechanizmy replikacji<a class="headerlink" href="#mechanizmy-replikacji" title="Link to this heading">¶</a></h2>
+<p>Replikacja w bazach danych odnosi się do procesu kopiowania i dystrybucji danych i obiektów z jednej bazy danych do innej, a następnie synchronizacji obu baz danych w celu utrzymania ich spójności.
+Proces ten jest dość prosty. Główny serwer (master) prowadzi dziennik operacji, wykorzystując do tego pliki binarne zwane bin-logami, które zawierają instrukcje wykonane przez mastera. Te pliki są następnie odczytywane przez serwer zapasowy (slave), który wykonuje zapytania zawarte w bin-logach, co skutkuje dodawaniem nowych rekordów do bazy danych. W efekcie powstają dwie identyczne bazy danych. Po ustawieniu replikacji na serwerze master, uruchamiany jest dodatkowy wątek, który ma za zadanie wysyłać bin-logi do serwerów slave. Serwer zapasowy z kolei uruchamia dwa wątki: jeden do odczytu bin-logów i drugi do ich wykonania.
+- Wątek I/O (Input/Output) - zajmuje się odbieraniem dziennika od serwera głównego i zapisywaniem go w plikach tymczasowych relay-log.
+- Wątek SQL - parsuje te pliki i wykonuje zapytania do bazy danych.
+W skrócie, mechanizm replikacji MySQL polega na tym, że serwer główny rejestruje swoje działania, a serwer zapasowy odtwarza te działania, tworząc kopię bazy danych.</p>
+</section>
+<section id="oprogramowanie-i-zaimplementowane-mechanizmy-replikacji">
+<h2>Oprogramowanie i zaimplementowane mechanizmy replikacji<a class="headerlink" href="#oprogramowanie-i-zaimplementowane-mechanizmy-replikacji" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Replikacja oparta na zapisie (Write-Ahead Logging): Ten mechanizm jest powszechnie stosowany w systemach baz danych, takich jak PostgreSQL. Polega na rejestrowaniu transakcji w dzienniku zapisu przed ich zastosowaniem, a następnie replikacji dziennika na serwery repliki.</p></li>
+<li><p>Replikacja oparta na zrzutach (Snapshot-Based Replication): Systemy, takie jak Apache Cassandra, wykorzystują replikację opartą na zrzutach. Polega to na tworzeniu zrzutów stanu bazy danych w określonych odstępach czasu i replikacji ich na serwery repliki.</p></li>
+<li><p>Replikacja oparta na transakcjach (Transaction-Based Replication): W tym modelu każda transakcja jest replikowana na serwery repliki, co jest przydatne w systemach wymagających silnej spójności, np. Google Spanner.</p></li>
+<li><p>Replikacja asynchroniczna i synchroniczna: W replikacji asynchronicznej dane są najpierw zapisywane do głównej bazy danych, a następnie replikowane na serwery repliki. W replikacji synchronicznej dane są zapisywane jednocześnie do głównej bazy danych i serwerów repliki.</p></li>
+<li><p>Replikacja dwukierunkowa (Bi-Directional Replication): Pozwala na wprowadzanie zmian na dowolnym serwerze repliki, które są następnie replikowane na pozostałe serwery, co jest przydatne w przypadku wysokiej dostępności i tolerancji na awarie.</p></li>
+</ul>
+<p>PostgreSQL oferuje różne typy replikacji, w tym replikację opartą na zapisie (Write-Ahead Logging), replikację asynchroniczną i synchroniczną oraz replikację logiczną. Replikacja oparta na zapisie (WAL) gwarantuje odporność na awarie poprzez zapisywanie zmian w bazie danych do dziennika zapisu przed ich zastosowaniem, który jest replikowany na serwery repliki. PostgreSQL obsługuje zarówno replikację asynchroniczną, gdzie dane są najpierw zapisywane do głównej bazy danych, a następnie replikowane, jak i replikację synchroniczną, gdzie dane są zapisywane jednocześnie do głównej bazy danych i serwerów repliki. Dodatkowo, replikacja logiczna pozwala na replikację wybranych tabel lub baz danych zamiast całego klastra, co jest przydatne zwłaszcza w przypadku dużych baz danych, gdzie replikacja całego klastra byłaby nieefektywna.</p>
+</section>
+<section id="plusy-i-minusy-replikacji">
+<h2>Plusy i minusy replikacji<a class="headerlink" href="#plusy-i-minusy-replikacji" title="Link to this heading">¶</a></h2>
+<p>Plusy:</p>
+<ul class="simple">
+<li><p>Poprawa wydajności i dostępności: Replikacja danych pozwala na dystrybucję obciążenia zapytań pomiędzy wiele serwerów, co zwiększa wydajność systemu. Użytkownicy mogą wysyłać zapytania do najbliższego serwera repliki, co skraca czas odpowiedzi. Ponadto, jeśli jeden serwer ulegnie awarii, inne serwery repliki mogą nadal obsługiwać zapytania, co zwiększa dostępność systemu.</p></li>
+<li><p>Bezpieczeństwo danych: Replikacja jest również kluczowym elementem strategii tworzenia kopii zapasowych i odzyskiwania danych. Jeśli główna baza danych ulegnie awarii, replika może zostać użyta do przywrócenia danych.</p></li>
+<li><p>Dystrybucja danych: Replikacja umożliwia dystrybucję danych do oddzielnych lokalizacji geograficznych. Na przykład, globalna firma może chcieć replikować dane między swoimi lokalizacjami w różnych krajach, aby lokalni użytkownicy mogli szybko i łatwo uzyskać dostęp do potrzebnych informacji.</p></li>
+<li><p>Analiza i raportowanie: Repliki danych mogą być używane do celów analitycznych i raportowych. Dzięki temu operacje te nie wpływają na wydajność głównej bazy danych obsługującej transakcje.</p></li>
+</ul>
+<p>Minusy:</p>
+<ul class="simple">
+<li><p>Nie daje nam pewności, że po przeprowadzeniu operacji, dane z serwera głównego będą poprawnie przeniesione na serwer zapasowy</p></li>
+<li><p>Nie zapewnia ochrony przed operacjami niosącymi poważne konsekwencje - takimi jak DROP TABLE</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">sprawozdanie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Czubaty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../_sources/rozdzialy/rozdzial5.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Limity systemu oraz ograniczanie dostępu użytkowników &#8212; sprawozdanie 1.0 - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
+    <script src="../_static/documentation_options.js?v=331e28ce"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../genindex.html" />
+    <link rel="search" title="Szukaj" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="limity-systemu-oraz-ograniczanie-dostepu-uzytkownikow">
+<h1>Limity systemu oraz ograniczanie dostępu użytkowników<a class="headerlink" href="#limity-systemu-oraz-ograniczanie-dostepu-uzytkownikow" title="Link to this heading">¶</a></h1>
+<p>Limity systemu w zarządzaniu bazami danych odnoszą się do maksymalnej liczby zasobów, które system może obsłużyć. Te limity są zwykle określane przez system zarządzania bazą danych (DBMS) i są zdefiniowane na podstawie dostępnych zasobów sprzętowych i ustawień konfiguracyjnych. Na przykład, w Azure SQL Database istnieją specyficzne limity zasobów dla różnych poziomów cenowych dla pojedynczych baz danych. W MySQL, efektywny maksymalny rozmiar tabeli dla baz danych MySQL jest zazwyczaj określany przez ograniczenia systemu operacyjnego na rozmiary plików, a nie przez wewnętrzne limity MySQL.
+Ograniczanie dostępu użytkowników w DBMS odnosi się do mechanizmu, który umożliwia lub zabrania użytkownikom dostęp do danych. Składa się z dwóch głównych komponentów: uwierzytelniania i autoryzacji. Uwierzytelnianie to sposób potwierdzenia tożsamości osoby, która próbuje uzyskać dostęp do bazy danych. Autoryzacja natomiast określa, czy poziom dostępu użytkownika jest odpowiedni. Istnieją różne modele kontroli dostępu, takie jak Kontrola Dostępu Uzależniona (DAC), Kontrola Dostępu Obowiązkowa (MAC), Kontrola Dostępu na Podstawie Roli (RBAC) i Kontrola Dostępu na Podstawie Atrybutów (ABAC).
+W PostgreSQL również istnieją mechanizmy do zarządzania limitami systemu oraz ograniczania dostępu użytkowników. PostgreSQL umożliwia administratorom określenie różnych parametrów konfiguracyjnych, takich jak maksymalna ilość połączeń, pamięć dostępna dla zapytań, maksymalny rozmiar pliku danych, czy maksymalny rozmiar tabeli. Te limity mogą być dostosowywane do potrzeb konkretnego środowiska i obciążenia.
+W kwestii ograniczania dostępu użytkowników, PostgreSQL oferuje zaawansowane mechanizmy uwierzytelniania i autoryzacji. Można definiować różne role użytkowników, nadawać im odpowiednie uprawnienia do baz danych, schematów, tabel czy nawet poszczególnych kolumn. PostgreSQL obsługuje zarówno uwierzytelnianie oparte na hasłach, jak i uwierzytelnianie oparte na certyfikatach SSL.
+Dzięki tym funkcjom, administratorzy baz danych mogą skutecznie kontrolować dostęp do danych, zapewniając bezpieczeństwo i poufność informacji przechowywanych w PostgreSQL.</p>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">sprawozdanie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Czubaty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../_sources/rozdzialy/rozdzial6.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

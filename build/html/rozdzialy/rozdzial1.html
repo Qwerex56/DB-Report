@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Rozdział 1 &#8212; sprawozdanie 1.0 - dokumentacja</title>
+    <title>Kontrola i buforowanie połączeń &#8212; sprawozdanie 1.0 - dokumentacja</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
     <script src="../_static/documentation_options.js?v=331e28ce"></script>
@@ -14,8 +14,6 @@
     <script src="../_static/translations.js?v=a186e9ce"></script>
     <link rel="index" title="Indeks" href="../genindex.html" />
     <link rel="search" title="Szukaj" href="../search.html" />
-    <link rel="next" title="Rozdział 2" href="rozdzial2.html" />
-    <link rel="prev" title="Welcome to sprawozdanie’s documentation!" href="../index.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -33,12 +31,24 @@
 
           <div class="body" role="main">
             
-  <section id="rozdzial-1">
-<h1>Rozdział 1<a class="headerlink" href="#rozdzial-1" title="Link to this heading">¶</a></h1>
-<p>Jakaś treść</p>
-<section id="podrozdzial">
-<h2>Podrozdział<a class="headerlink" href="#podrozdzial" title="Link to this heading">¶</a></h2>
-<p>Jakas inna treść</p>
+  <section id="kontrola-i-buforowanie-polaczen">
+<h1>Kontrola i buforowanie połączeń<a class="headerlink" href="#kontrola-i-buforowanie-polaczen" title="Link to this heading">¶</a></h1>
+<p>Kontrola i buforowanie połączeń z bazą danych to kluczowe aspekty zarządzania bazami danych, które mają na celu optymalizację wydajności i zapewnienie niezawodności.</p>
+<section id="kontrola-polaczen-z-baza-danych">
+<h2>Kontrola połączeń z bazą danych:<a class="headerlink" href="#kontrola-polaczen-z-baza-danych" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Zarządzanie pulą połączeń: Technika ta pozwala aplikacjom na utrzymanie puli aktywnych połączeń z bazą danych, które są wielokrotnie używane. Poprzez efektywne zarządzanie pulą połączeń, aplikacje mogą minimalizować koszty związane z nawiązywaniem nowych połączeń, co przyczynia się do zwiększenia wydajności i efektywności systemu.</p></li>
+<li><p>Monitorowanie wydajności połączenia: Proces ten obejmuje śledzenie metryk związanych z połączeniem z bazą danych, takich jak czas odpowiedzi, błędy połączenia, ilość przesyłanych danych itp. Regularne monitorowanie tych metryk umożliwia szybkie wykrywanie problemów, co pozwala na ich natychmiastowe rozwiązanie i poprawę ogólnej wydajności systemu.</p></li>
+<li><p>Zarządzanie transakcjami: Kontrola nad transakcjami obejmuje precyzyjne określenie, kiedy i w jaki sposób transakcje są przetwarzane w bazie danych. Poprzez skuteczne zarządzanie transakcjami, można zapewnić spójność danych oraz uniknąć konfliktów. Przykładowo, dbając o to, aby operacje w ramach jednej transakcji były wykonywane jako jedna, niepodzielna jednostka pracy, zapewniamy integralność danych.</p></li>
+</ul>
+</section>
+<section id="buforowanie-polaczen-z-baza-danych">
+<h2>Buforowanie połączeń z bazą danych:<a class="headerlink" href="#buforowanie-polaczen-z-baza-danych" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Buforowanie zapytań: Technika ta polega na przechowywaniu wyników często używanych zapytań w pamięci podręcznej. Dzięki temu, gdy aplikacja ponownie potrzebuje wyników tego samego zapytania, może je szybko pobrać z pamięci podręcznej, co znacząco przyspiesza czas odpowiedzi i zmniejsza obciążenie bazy danych.</p></li>
+<li><p>Buforowanie wyników: Podobnie jak buforowanie zapytań, buforowanie wyników polega na przechowywaniu wyników kosztownych zapytań w pamięci podręcznej na przyszłe użycie. To pozwala uniknąć ponownego przetwarzania zapytań, które wymagają skomplikowanych obliczeń lub dostępu do wielu tabel, co przyczynia się do poprawy wydajności systemu.</p></li>
+<li><p>Inwalidacja bufora: Proces inwalidacji bufora polega na usuwaniu danych z pamięci podręcznej, gdy stają się przestarzałe lub nieaktualne. Jest to istotny aspekt zarządzania pamięcią podręczną, który zapewnia, że przechowywane dane są zawsze aktualne. Mechanizmy inwalidacji bufora mogą być zautomatyzowane (np. usuwanie danych po określonym czasie) lub sterowane manualnie przez aplikację</p></li>
+</ul>
 </section>
 </section>
 
@@ -59,21 +69,11 @@
 
 
 <h3>Nawigacja</h3>
-<p class="caption" role="heading"><span class="caption-text">Spis treści:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Rozdział 1</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#podrozdzial">Podrozdział</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="rozdzial2.html">Rozdział 2</a></li>
-</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../index.html" title="poprzedni rozdział">Welcome to sprawozdanie’s documentation!</a></li>
-      <li>Next: <a href="rozdzial2.html" title="następny rozdział">Rozdział 2</a></li>
   </ul></li>
 </ul>
 </div>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Bezpieczeństwo baz danych &#8212; sprawozdanie 1.0 - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../_static/documentation_options.js?v=331e28ce"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../../genindex.html" />
+    <link rel="search" title="Szukaj" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="bezpieczenstwo-baz-danych">
+<h1>Bezpieczeństwo baz danych<a class="headerlink" href="#bezpieczenstwo-baz-danych" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Spis treści:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="rozdzialy/rozdzial1.html">pg_hba.conf - Sterowanie Dostępem</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial1.html#struktura-pliku-pg-hba-conf">Struktura pliku pg_hba.conf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial1.html#mechanizmy-dostepu">Mechanizmy Dostępu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial1.html#konsekwencje-wyboru-mechanizmu-dostepu">Konsekwencje Wyboru Mechanizmu Dostępu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial1.html#przyklady-konfiguracji">Przykłady Konfiguracji</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rozdzialy/rozdzial2.html">Uprawnienia Użytkownika</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial2.html#poziom-dbms">Poziom DBMS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial2.html#poziom-bazy-danych">Poziom Bazy Danych</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial2.html#poziom-tabeli">Poziom Tabeli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial2.html#role-i-grupy-uzytkownikow">Role i Grupy Użytkowników</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rozdzialy/rozdzial3.html">Zarządzanie Użytkownikami a Dane Wprowadzone</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial3.html#tworzenie-i-modyfikowanie-uzytkownikow">Tworzenie i Modyfikowanie Użytkowników</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial3.html#usuwanie-uzytkownikow">Usuwanie Użytkowników</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial3.html#zachowanie-danych-po-usunieciu-uzytkownika">Zachowanie Danych po Usunięciu Użytkownika</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial3.html#polityki-retencji-danych">Polityki Retencji Danych</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rozdzialy/rozdzial4.html">Zabezpieczenie Połączenia przez SSL/TLS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial4.html#konfiguracja-ssl-tls">Konfiguracja SSL/TLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial4.html#tworzenie-i-zarzadzanie-certyfikatami">Tworzenie i Zarządzanie Certyfikatami</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial4.html#korzysci-z-ssl-tls">Korzyści z SSL/TLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial4.html#monitorowanie-i-audyt-polaczen-ssl-tls">Monitorowanie i Audyt Połączeń SSL/TLS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rozdzialy/rozdzial5.html">Szyfrowanie Danych</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial5.html#szyfrowanie-w-transmisji">Szyfrowanie w Transmisji</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial5.html#szyfrowanie-na-poziomie-dysku">Szyfrowanie na Poziomie Dysku</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial5.html#szyfrowanie-na-poziomie-aplikacji">Szyfrowanie na Poziomie Aplikacji</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rozdzialy/rozdzial5.html#zarzadzanie-kluczami-szyfrujacymi">Zarządzanie Kluczami Szyfrującymi</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<hr class="docutils" />
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">sprawozdanie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Czubaty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../../_sources/sprawozdanie/source/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

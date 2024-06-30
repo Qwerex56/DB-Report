@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Wydajność &#8212; sprawozdanie 1.0 - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
+    <script src="../_static/documentation_options.js?v=331e28ce"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../genindex.html" />
+    <link rel="search" title="Szukaj" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="wydajnosc">
+<h1>Wydajność<a class="headerlink" href="#wydajnosc" title="Link to this heading">¶</a></h1>
+<p>Wydajność bazy danych to kluczowy aspekt zarządzania danymi, który ma bezpośredni wpływ na funkcjonowanie i sukces organizacji. W dobie cyfryzacji i rosnącej zależności od danych, zarządzanie wydajnością baz danych stało się nieodzownym elementem strategii IT. W tym podpunkcie opiszemy sześć kluczowych aspektów wydajności baz danych: czasy odpowiedzi, przepustowość, współbieżność, wykorzystanie zasobów, zapytania N+1 i błędy bazy danych.
+Parametry wydajności baz danych są podstawowymi wskaźnikami zdrowia systemu baz danych. Monitorowanie tych parametrów i proaktywne zarządzanie nimi jest kluczowe dla utrzymania zdrowia i wydajności bazy danych. Niewidoczne lub niemonitorowane problemy mogą prowadzić do poważnych zakłóceń, takich jak spadek wydajności, potencjalna utrata danych, a nawet awaria systemu, dlatego parametry wydajności nie mogą być ignorowane.</p>
+<section id="czasy-odpowiedzi">
+<h2>1. Czasy odpowiedzi<a class="headerlink" href="#czasy-odpowiedzi" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Czasy odpowiedzi bazy danych są kluczowym elementem w środowiskach, gdzie szybkie decyzje mają kluczowe znaczenie, jak w usługach finansowych czy sytuacjach awaryjnych. Kilka czynników wpływa na czas odpowiedzi:</dt><dd><ul class="simple">
+<li><p>Architektura bazy danych: Fizyczny i logiczny projekt bazy danych, w tym partycjonowanie, indeksowanie i przechowywanie danych, mają istotny wpływ. Odpowiednie partycjonowanie i indeksowanie danych może skrócić czas wyszukiwania, a korzystanie z baz danych w pamięci może znacząco przyspieszyć operacje poprzez uniknięcie dostępu do dysku.</p></li>
+<li><p>Topologia i kondycja sieci: W rozproszonych bazach danych, konfiguracja sieci, opóźnienia, przepustowość i utrata pakietów mają znaczący wpływ na czas pobierania i zwracania danych. Optymalizacja sieci i kompresja danych mogą pomóc zminimalizować opóźnienia.</p></li>
+<li><p>Równoczesny dostęp i równoważenie obciążenia: Techniki takie jak łączenie połączeń, równoważenie obciążenia i replikacja odczytu mogą równomiernie rozłożyć obciążenie, co przekłada się na optymalne czasy odpowiedzi nawet przy dużym ruchu.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Wydajne czasy odpowiedzi są kluczowe dla operacyjnej wydajności, zadowolenia klientów i wyników finansowych firm. Są one wskaźnikiem kondycji systemu baz danych, wpływającym na przepustowość i skalowalność infrastruktury IT. W sektorach zwiększającej się ilości danych utrzymanie szybkich czasów odpowiedzi może stanowić przewagę konkurencyjną.</p>
+</section>
+<section id="przepustowosc">
+<h2>2. Przepustowość<a class="headerlink" href="#przepustowosc" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Przepustowość bazy danych jest kluczowym wskaźnikiem efektywności systemu w obsłudze danych w określonym czasie. Wysoka przepustowość oznacza zdolność bazy danych do obsłużenia większej liczby żądań lub operacji w sposób szybki i wydajny. Wpływ na przepustowość mają różne czynniki, takie jak:</dt><dd><ul class="simple">
+<li><p>Współbieżność: Mechanizmy zarządzania transakcjami i blokowania odgrywają istotną rolę w zapewnieniu integralności danych i zwiększeniu wydajności. Efektywne zarządzanie transakcjami pozwala wielu użytkownikom na jednoczesne operacje bez zakłóceń, co jest istotne w środowiskach o dużym obciążeniu, jak podczas wyprzedaży online. Więcej o współbieżności w kolejnym punkcie.</p></li>
+<li><p>Bazy danych NoSQL: Systemy NoSQL korzystają z podejścia opartego na ewentualnej spójności, co pozwala na szybsze operacje zapisu poprzez unikanie oczekiwania na zaktualizowanie wszystkich kopii danych we wszystkich węzłach.</p></li>
+<li><p>Dystrybucja danych: Techniki takie jak sharding w NoSQL lub partycjonowanie w bazach SQL pozwalają na podział danych na wiele serwerów lub partycji, co zmniejsza obciążenie poszczególnych elementów systemu i poprawia ogólną zdolność do obsługi dużych ilości operacji.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Warto zauważyć, że odpowiednie zarządzanie współbieżnością, wybór odpowiedniego typu bazy danych oraz efektywna dystrybucja danych mają kluczowe znaczenie dla osiągnięcia wysokiej przepustowości bazy danych.</p>
+</section>
+<section id="wspolbieznosc">
+<h2>3. Współbieżność<a class="headerlink" href="#wspolbieznosc" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Współbieżność w bazach danych odnosi się do zdolności systemu do obsługi wielu operacji jednocześnie, co jest kluczowe w środowiskach, gdzie wiele użytkowników lub aplikacji korzysta z bazy danych równocześnie. Parametry wydajności baz danych, takie jak transakcje na sekundę (TPS) i zapytania na sekundę (QPS), mierzą współbieżność bazy danych poprzez liczbę operacji, jakie może obsłużyć w jednostce czasu. Czynniki wpływające pozytywnie na współbieżność to:</dt><dd><ul class="simple">
+<li><p>Mechanizmy blokujące: Efektywne zarządzanie blokadami umożliwia uniknięcie rywalizacji między transakcjami, co przyczynia się do płynniejszego działania bazy danych.</p></li>
+<li><p>Poziomy izolacji transakcji: Wybór odpowiedniego poziomu izolacji transakcji ma wpływ na dokładność danych i współbieżność. Wyższe poziomy izolacji zapewniają większą dokładność, ale mogą ograniczać współbieżność poprzez blokowanie transakcji.</p></li>
+<li><p>Architektura bazy danych: Ogólny projekt bazy danych, zwłaszcza w przypadku rozproszonych baz danych, może wpłynąć na zdolność systemu do obsługi wielu równoczesnych żądań poprzez rozłożenie obciążenia na wiele węzłów.</p></li>
+</ul>
+</dd>
+<dt>Wyzwania dla współbieżności obejmują:</dt><dd><ul class="simple">
+<li><p>Zakleszczenia (Deadlocki): Sytuacje, w których transakcje blokują się nawzajem, uniemożliwiając kontynuację, co może spowolnić bazę danych.</p></li>
+<li><p>Głód zasobów: Kiedy procesy zużywają zbyt dużo zasobów, ograniczając dostępność dla innych procesów i zmniejszając współbieżność.</p></li>
+<li><p>Hotspoty danych: Częsty dostęp do tych samych punktów danych może tworzyć wąskie gardła, ograniczając współbieżność poprzez tworzenie kolejek dostępu do zasobów.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="wykorzystanie-zasobow-cpu-pamiec-i-o-dysku">
+<h2>4. Wykorzystanie zasobów (CPU, pamięć, I/O dysku)<a class="headerlink" href="#wykorzystanie-zasobow-cpu-pamiec-i-o-dysku" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Wykorzystanie zasobów w środowiskach baz danych ma kluczowy wpływ na wydajność i efektywność operacji obsługi danych. Kilka kluczowych zasobów, takich jak CPU, pamięć i operacje wejścia/wyjścia na dysku, wpływa na działanie bazy danych:</dt><dd><ul class="simple">
+<li><p>Użycie CPU: Procesor obsługuje wszystkie obliczenia związane z bazą danych, od wykonywania zapytań po zarządzanie transakcjami. Wysokie użycie procesora może wskazywać na nadmierne obciążenie bazy danych, co może prowadzić do spowolnienia operacji i długich czasów odpowiedzi. Maksymalne obciążenie procesora może również oznaczać, że zapytania nie są zoptymalizowane.</p></li>
+<li><p>Wykorzystanie pamięci: Pamięć przechowuje aktywnie używane dane, a jej odpowiednia alokacja ma kluczowe znaczenie dla wydajności bazy danych. Wyczerpanie pamięci RAM i poleganie na pamięci dyskowej może znacząco obniżyć wydajność, co często wynika z wycieków pamięci lub niewłaściwych ustawień.</p></li>
+<li><p>Operacje I/O na dysku: Operacje wejścia/wyjścia na dysku obejmują odczytywanie i zapisywanie danych, co ma istotne znaczenie dla przechowywania danych na dłuższy czas. Wysoki poziom operacji I/O na dysku może być objawem nieskutecznych strategii buforowania. Optymalne przechowywanie najczęściej używanych danych w pamięci może przyspieszyć operacje i uniknąć tworzenia wąskich gardeł związanym z dostępem do dysku.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Efektywne zarządzanie zasobami, takimi jak CPU, pamięć i operacje wejścia/wyjścia na dysku, jest kluczowe dla zapewnienia optymalnej wydajności bazy danych i uniknięcia spowolnień czy problemów z operacjami.</p>
+</section>
+<section id="zapytania-n-1">
+<h2>5. Zapytania N+1<a class="headerlink" href="#zapytania-n-1" title="Link to this heading">¶</a></h2>
+<p>Problemy z zapytaniami N+1 są powszechną nieefektywnością w aplikacjach korzystających z baz danych, szczególnie tych wykorzystujących narzędzia mapowania obiektowo-relacyjnego (ORM). Problem ten polega na nadmiernym wykonywaniu zapytań do bazy danych, co jest szczególnie zauważalne w przypadku, gdy aplikacja wykonuje dodatkowe zapytania dla każdego powiązanego obiektu po jednym początkowym zapytaniu. Przykładowo, jeśli aplikacja pobiera 10 użytkowników za pomocą jednego zapytania, a następnie wykonuje dodatkowe 10 zapytań dla pobrania profili każdego użytkownika, prowadzi to do łącznie 11 zapytań - co jest problemem zapytań N+1.</p>
+<dl class="simple">
+<dt>Przyczyny problemów z zapytaniami N+1 to:</dt><dd><ul class="simple">
+<li><p>Błędna konfiguracja ORM: Narzędzia ORM mają za zadanie ułatwić interakcję z bazą danych, ale nieprawidłowa konfiguracja może prowadzić do nieefektywnych strategii ładowania danych, takich jak „leniwe ładowanie”, które powoduje nadmiarowe zapytania.</p></li>
+<li><p>Brak zapytań łączących: Niedostateczne wykorzystanie złączeń SQL może prowadzić do problemów z zapytaniami N+1, gdzie aplikacja pobiera dane fragmentarycznie zamiast łączyć je w jednym zapytaniu.</p></li>
+<li><p>Niezoptymalizowane wzorce dostępu do danych: Nieefektywne praktyki kodowania, zwłaszcza te związane z iteracyjnym dostępem do danych, mogą prowadzić do nadmiernego wykonywania zapytań do bazy danych, szczególnie w przypadku pętli, które wyzwalają nowe zapytania dla każdej iteracji.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Rozwiązanie problemów z zapytaniami N+1 wymaga odpowiedniej konfiguracji ORM, wykorzystania złączeń SQL oraz optymalizacji wzorców dostępu do danych, aby uniknąć nadmiernego obciążenia bazą danych i poprawić wydajność aplikacji.</p>
+</section>
+<section id="bledy-bazy-danych">
+<h2>6. Błędy bazy danych<a class="headerlink" href="#bledy-bazy-danych" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Wskaźniki wydajności bazy danych obejmują również błędy, które mogą wpływać na operacje na bazie danych, od pobierania danych po ich przechowywanie. Błędy te mogą objawiać się jako komunikaty o błędach lub kody, sygnalizujące konkretne problemy w systemie bazy danych. Typowe rodzaje błędów bazy danych to:</dt><dd><ul class="simple">
+<li><p>Błędy połączenia: Pojawiają się, gdy aplikacja nie może nawiązać połączenia z bazą danych, co może być spowodowane problemami sieciowymi, błędami w ciągach połączeń lub awarią serwera bazy danych.</p></li>
+<li><p>Błędy składni w zapytaniach: Występują, gdy polecenie SQL zawiera błędy składniowe, co powoduje odrzucenie go przez bazę danych, szczególnie w przypadku złożonych zapytań SQL.</p></li>
+<li><p>Naruszenia ograniczeń: Bazy danych mają reguły, takie jak klucze obce i unikalne ograniczenia, które mają na celu utrzymanie integralności danych. Naruszenie tych ograniczeń, na przykład próba wstawienia duplikatu w miejscu, gdzie powinny być tylko unikalne wpisy, spowoduje zgłoszenie błędu przez bazę danych.</p></li>
+<li><p>Błędy limitu zasobów: Pojawiają się, gdy baza danych przekracza limity dostępnych zasobów, takie jak brak miejsca na dysku, przeciążenie procesora czy brak pamięci. Te błędy mogą znacząco spowolnić lub nawet zatrzymać działanie systemu.</p></li>
+<li><p>Błędy uprawnień i zabezpieczeń: Próba wykonania operacji bez odpowiednich uprawnień spowoduje błędy, na przykład brak dostępu do tabeli lub wykonywanie operacji bez wymaganych uprawnień.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Rozpoznanie i rozwiązanie tych błędów jest kluczowe dla zapewnienia stabilności i wydajności bazy danych oraz uniknięcia problemów podczas operacji na danych.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">sprawozdanie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Czubaty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../_sources/rozdzialy/rozdzial3.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

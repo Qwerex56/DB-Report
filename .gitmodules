@@ -1,0 +1,15 @@
+[submodule "sprawozdanie"]
+	path = sprawozdanie
+	url = https://github.com/Hairi43/sprawozdanie.git
+[submodule "Sprawozdanie_bazy_p1"]
+	path = Sprawozdanie_bazy_p1
+	url = https://github.com/wsnowicki/Sprawozdanie_bazy_p1.git
+[submodule "source/Sprawozdanie_bazy_p1"]
+	path = source/Sprawozdanie_bazy_p1
+	url = https://github.com/wsnowicki/Sprawozdanie_bazy_p1.git
+[submodule "source/sprawozdanie"]
+	path = source/sprawozdanie
+	url = https://github.com/Hairi43/sprawozdanie.git
+[submodule "source/DB-Report"]
+	path = source/DB-Report
+	url = https://github.com/Kitkacy/DB-Report.git

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Szyfrowanie Danych &#8212; sprawozdanie 1.0 - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../../_static/documentation_options.js?v=331e28ce"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../../../genindex.html" />
+    <link rel="search" title="Szukaj" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="szyfrowanie-danych">
+<h1>Szyfrowanie Danych<a class="headerlink" href="#szyfrowanie-danych" title="Link to this heading">¶</a></h1>
+<p>Szyfrowanie danych w PostgreSQL może odbywać się zarówno na poziomie
+transmisji danych, jak i na poziomie przechowywania danych.</p>
+<section id="szyfrowanie-w-transmisji">
+<h2>Szyfrowanie w Transmisji<a class="headerlink" href="#szyfrowanie-w-transmisji" title="Link to this heading">¶</a></h2>
+<p>Jak wspomniano wcześniej, SSL/TLS umożliwia szyfrowanie danych podczas
+transmisji między klientem a serwerem, co zapobiega nieautoryzowanemu
+dostępowi do danych w trakcie ich przesyłania.</p>
+</section>
+<section id="szyfrowanie-na-poziomie-dysku">
+<h2>Szyfrowanie na Poziomie Dysku<a class="headerlink" href="#szyfrowanie-na-poziomie-dysku" title="Link to this heading">¶</a></h2>
+<p>PostgreSQL nie posiada natywnego wsparcia dla szyfrowania danych na
+poziomie tabel lub baz danych, jednak możliwe jest wykorzystanie
+zewnętrznych narzędzi i systemów plików szyfrujących. Przykładem może
+być system plików z szyfrowaniem (np. LUKS w systemach Linux) lub
+szyfrowanie oferowane przez rozwiązania chmurowe (np. Amazon RDS).</p>
+<p>Przykładowa konfiguracja szyfrowania dysku na systemie Linux z użyciem
+LUKS:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">cryptsetup</span> <span class="n">luksFormat</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdX</span>
+<span class="n">sudo</span> <span class="n">cryptsetup</span> <span class="n">luksOpen</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdX</span> <span class="n">encrypted_disk</span>
+<span class="n">sudo</span> <span class="n">mkfs</span><span class="o">.</span><span class="n">ext4</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">mapper</span><span class="o">/</span><span class="n">encrypted_disk</span>
+<span class="n">sudo</span> <span class="n">mount</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">mapper</span><span class="o">/</span><span class="n">encrypted_disk</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">encrypted</span>
+</pre></div>
+</div>
+</section>
+<section id="szyfrowanie-na-poziomie-aplikacji">
+<h2>Szyfrowanie na Poziomie Aplikacji<a class="headerlink" href="#szyfrowanie-na-poziomie-aplikacji" title="Link to this heading">¶</a></h2>
+<p>Innym podejściem do szyfrowania danych jest szyfrowanie na poziomie
+aplikacji, gdzie dane są szyfrowane przed zapisaniem do bazy danych i
+odszyfrowywane po ich odczytaniu. Takie podejście zapewnia pełną
+kontrolę nad procesem szyfrowania, jednak wymaga dodatkowej
+implementacji w kodzie aplikacji.</p>
+<p>Przykładowe biblioteki do szyfrowania danych na poziomie aplikacji:</p>
+<ul class="simple">
+<li><p><strong>Python</strong> - <code class="docutils literal notranslate"><span class="pre">cryptography</span></code>, <code class="docutils literal notranslate"><span class="pre">pycryptodome</span></code>.</p></li>
+<li><p><strong>Java</strong> - <code class="docutils literal notranslate"><span class="pre">javax.crypto</span></code>, <code class="docutils literal notranslate"><span class="pre">Bouncy</span> <span class="pre">Castle</span></code>.</p></li>
+<li><p><strong>JavaScript</strong> - <code class="docutils literal notranslate"><span class="pre">crypto</span></code>, <code class="docutils literal notranslate"><span class="pre">sjcl</span></code>.</p></li>
+</ul>
+</section>
+<section id="zarzadzanie-kluczami-szyfrujacymi">
+<h2>Zarządzanie Kluczami Szyfrującymi<a class="headerlink" href="#zarzadzanie-kluczami-szyfrujacymi" title="Link to this heading">¶</a></h2>
+<p>Kluczowym elementem skutecznego szyfrowania danych jest zarządzanie
+kluczami szyfrującymi. Klucze muszą być bezpiecznie przechowywane i
+zarządzane, aby zapobiec ich utracie lub kradzieży. Przykładowe
+narzędzia do zarządzania kluczami:</p>
+<ul class="simple">
+<li><p><strong>HashiCorp Vault</strong> - bezpieczne przechowywanie i zarządzanie
+tajemnicami oraz kluczami szyfrującymi.</p></li>
+<li><p><strong>AWS Key Management Service (KMS)</strong> - zarządzanie kluczami w
+środowisku chmurowym Amazon Web Services.</p></li>
+<li><p><strong>GCP Cloud KMS</strong> - zarządzanie kluczami w środowisku Google Cloud
+Platform.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sprawozdanie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Czubaty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../../../_sources/sprawozdanie/source/rozdzialy/rozdzial5.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

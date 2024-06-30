@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sprzęt dla bazy danych PostgreSQL &#8212; sprawozdanie 1.0 - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../_static/documentation_options.js?v=331e28ce"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../../genindex.html" />
+    <link rel="search" title="Szukaj" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sprzet-dla-bazy-danych-postgresql">
+<h1>Sprzęt dla bazy danych PostgreSQL<a class="headerlink" href="#sprzet-dla-bazy-danych-postgresql" title="Link to this heading">¶</a></h1>
+<p>Wybór odpowiedniego sprzętu dla bazy danych PostgreSQL jest istotny aby  osiągnięć optymalną wydajność i niezawodność. Postegresql wymaga odpowiedniego sprzętu aby działał optymalnie. Tworząc bazę danych za pomocą PostegreSQL powinniśmy zaopatrzyć się  w sprzęt, który będzie odpowiedni pod PostegreSQL. Poniżej przedstawiono komponenty sprzętowe, które należy wziąć pod uwagę przy konfiguracji serwera dla PostgreSQL:</p>
+<section id="procesor-cpu">
+<h2>Procesor (CPU):<a class="headerlink" href="#procesor-cpu" title="Link to this heading">¶</a></h2>
+<p>Procesor jest sercem każdego serwera i ma ogromne znaczenie dla wydajności bazy danych. PostgreSQL może skorzystać z wielu rdzeni, więc zaleca się wybór procesora z wieloma rdzeniami i wysoką częstotliwością taktowania. Procesory z rodziny Intel Xeon lub AMD EPYC są często wybierane do zastosowań serwerowych ze względu na ich wydajność i niezawodność.</p>
+</section>
+<section id="pamiec-operacyjna-ram">
+<h2>Pamięć Operacyjna (RAM):<a class="headerlink" href="#pamiec-operacyjna-ram" title="Link to this heading">¶</a></h2>
+<p>Pamięć RAM jest krytycznym zasobem dla PostgreSQL, ponieważ pozwala na przechowywanie aktywnych danych i indeksów w pamięci, co znacznie przyspiesza operacje odczytu i zapisu. Zaleca się posiadanie jak największej ilości pamięci RAM, która jest dostępna dla serwera, z minimalną rekomendacją wynoszącą 16 GB dla małych baz danych, aż do 256 GB lub więcej dla dużych wdrożeń baz danych.</p>
+</section>
+<section id="przestrzen-dyskowa-storage">
+<h2>Przestrzeń Dyskowa (Storage):<a class="headerlink" href="#przestrzen-dyskowa-storage" title="Link to this heading">¶</a></h2>
+<p>Wybór odpowiedniego typu i konfiguracji dysków jest istotny dla wydajności bazy danych. Dyski SSD (Solid State Drive) oferują znacznie lepszą wydajność niż tradycyjne dyski HDD, szczególnie w przypadku operacji o losowym dostępie, które są typowe dla baz danych. W przypadku dużych baz danych warto rozważyć zastosowanie rozwiązań RAID w celu zwiększenia niezawodności i wydajności.</p>
+</section>
+<section id="siec-networking">
+<h2>Sieć (Networking):<a class="headerlink" href="#siec-networking" title="Link to this heading">¶</a></h2>
+<p>Szybka i stabilna sieć jest niezbędna do zapewnienia komunikacji między serwerem bazy danych a klientami oraz innymi serwerami w klastrze. Zaleca się użycie przynajmniej gigabitowych interfejsów sieciowych, a w przypadku większych wdrożeń rozważenie 10 gigabitowych lub szybszych rozwiązań.</p>
+</section>
+<section id="zasilanie">
+<h2>Zasilanie :<a class="headerlink" href="#zasilanie" title="Link to this heading">¶</a></h2>
+<p>Nieprzerwane zasilanie jest bardzo istotne dla zapewnienia ciągłości działania serwera bazy danych. Zasilacz UPS może chronić sprzęt przed skutkami nagłych przerw w dostawie prądu i pozwala na bezpieczne wyłączenie serwera w przypadku dłuższej awarii zasilania.</p>
+</section>
+<section id="chlodzenie-cooling">
+<h2>Chłodzenie (Cooling):<a class="headerlink" href="#chlodzenie-cooling" title="Link to this heading">¶</a></h2>
+<p>Następną bardzo ważną sprawą przy sprzęcie dla baz danych jest adekwatne chłodzenie, aby zapewnić stabilną pracę komponentów serwera. Wysokie temperatury mogą skracać żywotność sprzętu i prowadzić do przestoju. Zaleca się stosowanie efektywnych systemów chłodzenia, szczególnie w serwerowniach z dużą liczbą urządzeń.</p>
+<p>Baza danych PostegreSQL intensywnie korzysta z CPU, a zatem wybór procesora z wieloma rdzeniami i wysoką częstotliwości taktowania, będzie znacznie poprawiać wydajność tworzonej bazy danych. Oprócz tego warto zaopatrzyć się w odpowiednią ilość pamięci RAM, PostegreSQL przechowuje często używane dane w pamięci  ze względu na szybszy dostęp do tych danych, co oznacza, że wymaganiem tej bazy danych będzie więcej pamięci RAM.  Przechowywane dane znajdują się na dysku twardym, a więc czym więcej mamy pojemności dysku tym większą ilość danych możemy przechować. PostegreSQL nie jest wybredny co do rodzaju dysku, zarówno sprawdzi się dysk twardy HDD jak i SSD. Jednakże dyski SSD oferują znacznie szybsze czasy odczytu i zapisu w porównaniu do tradycyjnych dysków HDD, a to może przekładać się na szybsze zapytania i mniejsze opóźnienia.  Szybka i niezawodna sieć jest niezbędna dla baz danych PostgreSQL, szczególnie jeśli są one używane w środowiskach rozproszonych. Ważnym aspektem też jest nieprzerwane zasilanie dla utrzymania ciągłości działania bazy danych i zapobiegania utracie danych. PostgreSQL jest zaawansowanym systemem zarządzania relacyjnymi bazami danych, który wymaga odpowiedniego sprzętu do efektywnego działania. Wybór sprzętu powinien być dostosowany do specyficznych potrzeb i obciążenia, jakie przewiduje się dla bazy danych.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">sprawozdanie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Czubaty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../../_sources/DB-Report/Bazy Danych Rozdział 1/Pod_rozdział_1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Skalowanie &#8212; sprawozdanie 1.0 - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
+    <script src="../_static/documentation_options.js?v=331e28ce"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../genindex.html" />
+    <link rel="search" title="Szukaj" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="skalowanie">
+<h1>Skalowanie<a class="headerlink" href="#skalowanie" title="Link to this heading">¶</a></h1>
+<p>Bazy danych SQL nie są tak kosztowne w rozbudowie, jak się powszechnie sądzi. Możliwe jest skalowanie ich wszerz, co przynosi wiele korzyści, zwłaszcza w kontekście analizy danych biznesowych. Firmy coraz bardziej interesują się analizą danych klientów pochodzących z różnych źródeł, co wymaga platform skalowalnych wszerz do przetwarzania dużych ilości danych w czasie rzeczywistym. Istnieje kilka opcji, takich jak bazy NoSQL, NewSQL czy platforma Hadoop, które mogą rozwiązać różne wyzwania związane z przetwarzaniem danych. Wdrożenie rozwiązania skalowalnego wszerz z odpowiednim balansem między pamięcią RAM a nośnikami flash może przynieść istotne korzyści, a nowa generacja skalowalnych baz SQL, takie jak InfiniSQL, ClustrixDB czy F1, pokazuje, że bazy SQL mogą być skalowalne wszerz.</p>
+<section id="analityka-czasu-rzeczywistego">
+<h2>Analityka czasu rzeczywistego:<a class="headerlink" href="#analityka-czasu-rzeczywistego" title="Link to this heading">¶</a></h2>
+<p>Analityka czasu rzeczywistego w branży Big Data skupia się obecnie na analizie danych w czasie rzeczywistym, co pozwala firmom uzyskać przewagę konkurencyjną i korzyści biznesowe. Istotnym elementem są skalowalne bazy danych SQL, które umożliwiają przetwarzanie danych operacyjnych w czasie rzeczywistym. Wykorzystanie metod przetwarzania kwerend w pamięci operacyjnej i macierzy dyskowych opartych na nośnikach SSD pozwala osiągnąć wysoką wydajność bez konieczności stosowania specjalistycznych rozwiązań. Firmy takie jak Google czy Facebook udowodniły, że bazy danych SQL są skutecznym narzędziem do przetwarzania danych, co może przyczynić się do ograniczenia kosztów zatrudniania specjalistów. Przykładowo, Google wykorzystuje bazę F1 SQL do usługi Adwords, co ułatwia tworzenie aplikacji do zadań OLTP i OLAP. Facebook również podkreśla znaczenie relacyjnych baz danych w analityce, co przekonało wielu do promowania rozszerzeń Hadoopa umożliwiających integrację z bazami SQL.</p>
+</section>
+<section id="latwa-rozbudowa">
+<h2>Łatwa rozbudowa:<a class="headerlink" href="#latwa-rozbudowa" title="Link to this heading">¶</a></h2>
+<p>Bazy danych SQL typu scale out umożliwiają łatwą liniową skalowalność poprzez dodawanie nowych węzłów do klastra, nawet w trakcie intensywnego użytkowania. Ta operacja nie wymaga zmian w kodzie, aktualizacji bazy danych ani wymiany sprzętu obsługującego aplikację. Każdy nowy węzeł może przyjmować i przetwarzać transakcje wraz z rozszerzaniem klastra. Istotną cechą tych baz SQL jest możliwość przenoszenia kodu bazy danych do węzłów przechowujących dane, zamiast przenoszenia samych danych. Dzięki temu ogranicza się ilość danych przesyłanych wewnątrz klastra, co prowadzi do zmniejszenia nadmiernego ruchu w klastrze i umożliwia liniową skalowalność bazy danych. Ponadto zapewnia to, że tylko jeden węzeł jest odpowiedzialny za zapis danych w określonym zbiorze, co eliminuje problem konkurencyjnego dostępu do tych samych zasobów. W tradycyjnych bazach danych każde zadanie blokuje obszary danych, co przy dużej liczbie zadań konkurencyjnych prowadzi do spadku wydajności.</p>
+</section>
+<section id="eliminacja-waskich-gardel">
+<h2>Eliminacja wąskich gardeł:<a class="headerlink" href="#eliminacja-waskich-gardel" title="Link to this heading">¶</a></h2>
+<p>W skalowalnych bazach danych SQL rozwiązano problem logu transakcyjnego, który często stanowił wąskie gardło. W tradycyjnych bazach danych wszystkie przetwarzane rekordy są zapisywane w logu transakcyjnym przed zakończeniem kwerendy. W przypadku błędnej konfiguracji lub awarii może to spowodować nadmierny wzrost logu transakcyjnego, który może przekroczyć rozmiar samej bazy danych. To z kolei prowadzi do spowolnienia operacji zapisu w bazie, nawet w przypadku użycia nośników SSD.</p>
+</section>
+<section id="wysoka-dostepnosc-w-chmurze">
+<h2>Wysoka dostępność w chmurze:<a class="headerlink" href="#wysoka-dostepnosc-w-chmurze" title="Link to this heading">¶</a></h2>
+<p>Organizacje oczekują, że ich aplikacje produkcyjne będą zawsze dostępne, co zapewni ciągłość procesów biznesowych. W przypadku awarii chmury, która może się zdarzyć, istotne jest, aby firma mogła szybko przywrócić działanie bazy danych bez utraty danych. Skalowalne bazy danych SQL posiadają wbudowane funkcje wysokiej dostępności, które zapewniają przechowywanie kilku kopii danych, co minimalizuje ryzyko ich utraty.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">sprawozdanie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Czubaty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../_sources/rozdzialy/rozdzial4.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

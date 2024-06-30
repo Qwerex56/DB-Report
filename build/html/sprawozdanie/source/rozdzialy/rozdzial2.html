@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Uprawnienia Użytkownika &#8212; sprawozdanie 1.0 - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../../_static/documentation_options.js?v=331e28ce"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../../../genindex.html" />
+    <link rel="search" title="Szukaj" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="uprawnienia-uzytkownika">
+<h1>Uprawnienia Użytkownika<a class="headerlink" href="#uprawnienia-uzytkownika" title="Link to this heading">¶</a></h1>
+<p>Uprawnienia użytkownika w PostgreSQL są zarządzane na kilku poziomach:
+systemu zarządzania bazą danych (DBMS), poszczególnych baz danych oraz
+tabel.</p>
+<section id="poziom-dbms">
+<h2>Poziom DBMS<a class="headerlink" href="#poziom-dbms" title="Link to this heading">¶</a></h2>
+<p>Na poziomie DBMS uprawnienia mogą obejmować możliwość tworzenia nowych
+baz danych, zarządzanie użytkownikami oraz konfigurację systemu.
+Przykładowe polecenia to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GRANT</span> <span class="n">CREATE</span> <span class="n">ON</span> <span class="n">DATABASE</span> <span class="n">dbname</span> <span class="n">TO</span> <span class="n">username</span><span class="p">;</span>
+<span class="n">REVOKE</span> <span class="n">CREATE</span> <span class="n">ON</span> <span class="n">DATABASE</span> <span class="n">dbname</span> <span class="n">FROM</span> <span class="n">username</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Administratorzy bazy danych (DBA) mają pełne uprawnienia na poziomie
+DBMS, co pozwala im na zarządzanie wszystkimi aspektami działania
+systemu PostgreSQL. Uprawnienia te mogą obejmować:</p>
+<ul class="simple">
+<li><p>Tworzenie i usuwanie baz danych.</p></li>
+<li><p>Tworzenie i zarządzanie użytkownikami oraz rolami.</p></li>
+<li><p>Konfigurację parametrów systemowych i optymalizację działania bazy
+danych.</p></li>
+</ul>
+</section>
+<section id="poziom-bazy-danych">
+<h2>Poziom Bazy Danych<a class="headerlink" href="#poziom-bazy-danych" title="Link to this heading">¶</a></h2>
+<p>Na poziomie bazy danych uprawnienia mogą obejmować dostęp do danych,
+modyfikację struktur oraz wykonywanie operacji administracyjnych.
+Polecenia zarządzające uprawnieniami to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GRANT</span> <span class="n">ALL</span> <span class="n">PRIVILEGES</span> <span class="n">ON</span> <span class="n">DATABASE</span> <span class="n">dbname</span> <span class="n">TO</span> <span class="n">username</span><span class="p">;</span>
+<span class="n">REVOKE</span> <span class="n">CONNECT</span> <span class="n">ON</span> <span class="n">DATABASE</span> <span class="n">dbname</span> <span class="n">FROM</span> <span class="n">username</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Uprawnienia na poziomie bazy danych mogą być szczegółowo dostosowane do
+potrzeb poszczególnych użytkowników lub grup użytkowników (ról). Na
+przykład, można przyznać uprawnienia do:</p>
+<ul class="simple">
+<li><p>Łączenia się z bazą danych (<code class="docutils literal notranslate"><span class="pre">CONNECT</span></code>).</p></li>
+<li><p>Tworzenia nowych schematów (<code class="docutils literal notranslate"><span class="pre">CREATE</span></code>).</p></li>
+<li><p>Wykonywania zapytań (<code class="docutils literal notranslate"><span class="pre">SELECT</span></code>) i modyfikacji danych (<code class="docutils literal notranslate"><span class="pre">INSERT</span></code>,
+<code class="docutils literal notranslate"><span class="pre">UPDATE</span></code>, <code class="docutils literal notranslate"><span class="pre">DELETE</span></code>).</p></li>
+<li><p>Zarządzania tabelami i innymi obiektami bazy danych (<code class="docutils literal notranslate"><span class="pre">ALTER</span></code>,
+<code class="docutils literal notranslate"><span class="pre">DROP</span></code>).</p></li>
+</ul>
+</section>
+<section id="poziom-tabeli">
+<h2>Poziom Tabeli<a class="headerlink" href="#poziom-tabeli" title="Link to this heading">¶</a></h2>
+<p>Na poziomie tabeli uprawnienia mogą obejmować selekcję, wstawianie,
+aktualizację oraz usuwanie danych. Przykładowe polecenia to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GRANT</span> <span class="n">SELECT</span><span class="p">,</span> <span class="n">INSERT</span> <span class="n">ON</span> <span class="n">TABLE</span> <span class="n">tablename</span> <span class="n">TO</span> <span class="n">username</span><span class="p">;</span>
+<span class="n">REVOKE</span> <span class="n">UPDATE</span> <span class="n">ON</span> <span class="n">TABLE</span> <span class="n">tablename</span> <span class="n">FROM</span> <span class="n">username</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Precyzyjne zarządzanie uprawnieniami na poziomie tabeli pozwala na
+ochronę danych przed nieautoryzowanym dostępem oraz modyfikacją.
+Przykłady uprawnień obejmują:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SELECT</span></code> - możliwość odczytu danych z tabeli.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INSERT</span></code> - możliwość dodawania nowych rekordów do tabeli.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UPDATE</span></code> - możliwość modyfikowania istniejących rekordów.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span></code> - możliwość usuwania rekordów.</p></li>
+</ul>
+</section>
+<section id="role-i-grupy-uzytkownikow">
+<h2>Role i Grupy Użytkowników<a class="headerlink" href="#role-i-grupy-uzytkownikow" title="Link to this heading">¶</a></h2>
+<p>PostgreSQL umożliwia tworzenie ról i grup użytkowników, co upraszcza
+zarządzanie uprawnieniami. Role mogą mieć przypisane uprawnienia, które
+są dziedziczone przez użytkowników przypisanych do tych ról. Przykładowe
+polecenia:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CREATE</span> <span class="n">ROLE</span> <span class="n">read_only</span><span class="p">;</span>
+<span class="n">GRANT</span> <span class="n">SELECT</span> <span class="n">ON</span> <span class="n">ALL</span> <span class="n">TABLES</span> <span class="n">IN</span> <span class="n">SCHEMA</span> <span class="n">public</span> <span class="n">TO</span> <span class="n">read_only</span><span class="p">;</span>
+<span class="n">GRANT</span> <span class="n">read_only</span> <span class="n">TO</span> <span class="n">username</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Stosowanie ról i grup użytkowników pozwala na bardziej elastyczne i
+skalowalne zarządzanie uprawnieniami. Na przykład, można stworzyć rolę
+<code class="docutils literal notranslate"><span class="pre">read_only</span></code>, która ma tylko uprawnienia do odczytu danych, a następnie
+przypisać tę rolę wielu użytkownikom, co znacznie upraszcza
+administrację.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sprawozdanie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Czubaty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../../../_sources/sprawozdanie/source/rozdzialy/rozdzial2.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

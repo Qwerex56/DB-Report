@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>SQLite &#8212; sprawozdanie 1.0 - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../_static/documentation_options.js?v=331e28ce"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../../genindex.html" />
+    <link rel="search" title="Szukaj" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sqlite">
+<h1>SQLite<a class="headerlink" href="#sqlite" title="Link to this heading">¶</a></h1>
+<p>SQLite to lekki system zarządzania relacyjnymi bazami danych, który jest często używany w aplikacjach mobilnych i na komputerach stacjonarnych oraz jest szeroko stosowana w różnych aplikacjach, od urządzeń mobilnych po duże systemy. Ze względu na swoją prostotę i niewielkie wymagania sprzętowe, SQLite może działać na różnych platformach z minimalnymi wymaganiami sprzętowymi. SQLite jest znany z tego, że jest wyjątkowo lekki i może działać na szerokiej gamie sprzętu. Nie wymaga dedykowanego serwera ani skomplikowanej konfiguracji, co sprawia, że jest idealny dla aplikacji o ograniczonych zasobach sprzętowych. Poniżej przedstawiono podstawowe  informacje dotyczące SQLite:</p>
+<ul class="simple">
+<li><p>Biblioteka SQLite może być zmniejszona do rozmiaru poniżej 300KiB, co czyni ją wyjątkowo kompaktową w porównaniu do innych systemów baz danych.</p></li>
+<li><p>Ma minimalne Zapotrzebowanie na Pamięć:</p></li>
+</ul>
+<p>SQLite może działać przy bardzo małym zużyciu pamięci stosu (stack) - około 4KiB oraz niewielkim zużyciu pamięci sterty (heap) - około 100KiB.</p>
+<ul class="simple">
+<li><p>Może działać bez Serwera:</p></li>
+</ul>
+<p>SQLite nie wymaga serwera do działania. Baza danych SQLite jest zintegrowana z aplikacją, która uzyskuje dostęp do bazy danych, a aplikacje wchodzą w interakcję bezpośrednio z plikami bazy danych przechowywanymi na dysku. SQLite jest zaprojektowany tak, aby być jak najbardziej kompatybilnym z innymi silnikami baz danych SQL. Dzięki temu, programiści doświadczeni w SQL powinni znaleźć się w  dialekcie  SQLite gdyż raczej będzie intuicyjny i naturalny. SQLite może pomijać niektóre mniej znane funkcje SQL, ale jego dialekt może zawierać pewne ulepszenia, których nie znajdziemy w niektórych dokumentach standardowych.</p>
+<p>Wymagania sprzętowe dla SQLite są dość minimalne, oczywiście im lepszy sprzęt tym lepsze można osiągnąć wydajności bazy danych.</p>
+<p>Urządzenia mobilne i wbudowane
+Dla aplikacji mobilnych i wbudowanych, gdzie zasoby są ograniczone, SQLite jest doskonałym wyborem. Może działać na:</p>
+<ul class="simple">
+<li><p>Smartfonach i tabletach z systemem Android lub iOS.</p></li>
+<li><p>Systemach wbudowanych i IoT, takich jak Raspberry Pi czy Arduino.</p></li>
+<li><p>Telewizorach Smart TV i systemach rozrywkowych w samochodach.</p></li>
+<li><p>Komputery osobiste i serwery</p></li>
+</ul>
+<p>SQLite może być również używany na komputerach osobistych i serwerach, gdzie zasoby nie są tak ograniczone. Może działać na:</p>
+<ul class="simple">
+<li><p>Komputerach z systemem operacyjnym Windows, macOS lub Linux.</p></li>
+<li><p>Serwerach, które mogą obsługiwać większe obciążenia i przechowywać większe bazy danych.</p></li>
+</ul>
+<p>Chociaż SQLite może działać na różnorodnym sprzęcie, istnieją pewne optymalizacje, które można przeprowadzić, aby poprawić wydajność bazy danych. Warto jednak pomyśleć o doborze odpowiedniego sprzętu w zależności jak dużą bazę danych SQLite chce się stworzyć, warto pomyśleć o tym aby sprzęt miał odpowiednią ilość pamięci zarówno RAM jak i  przestrzeni dyskowej. Przy doborze sprzętu do tej bazy danych warto wziąć pod uwagę :</p>
+<ul class="simple">
+<li><p>Pamięć RAM:</p></li>
+</ul>
+<p>Im więcej pamięci RAM, tym lepiej, może to pomóc w przyspieszeniu operacji na bazie danych, ponieważ SQLite korzysta z pamięci do przechowywania tymczasowych tabel i buforowania danych.</p>
+<ul class="simple">
+<li><p>Przestrzeń dyskowa:</p></li>
+</ul>
+<p>SQLite przechowuje całą bazę danych w jednym pliku, więc ważne jest, aby mieć wystarczającą ilość przestrzeni dyskowej, szczególnie jeśli spodziewamy się wzrostu danych. Warto zwrócić uwagę też na rodzaj dysku, dysk SSD będzie lepiej się sprawował, dzięki temu, że osiąga szybsze wyniki odczytu i zapisu.</p>
+<ul class="simple">
+<li><p>Procesor:</p></li>
+</ul>
+<p>Szybszy procesor może poprawić czas odpowiedzi bazy danych, szczególnie przy skomplikowanych zapytaniach i dużych zbiorach danych.</p>
+<section id="przykladowe-konfiguracje-sprzetowe-dla-aplikacji-mobilnych">
+<h2>Przykładowe konfiguracje sprzętowe dla aplikacji mobilnych:<a class="headerlink" href="#przykladowe-konfiguracje-sprzetowe-dla-aplikacji-mobilnych" title="Link to this heading">¶</a></h2>
+<p>Procesor: 4-rdzeniowy
+RAM: 2 GB
+Przestrzeń dyskowa: 32 GB
+Dla aplikacji desktopowych:
+Procesor: Intel Core i5 lub lepszy
+RAM: 8 GB
+Przestrzeń dyskowa: 256 GB SSD
+Dla serwerów:
+Procesor: Intel Xeon lub lepszy
+RAM: 16 GB lub więcej
+Przestrzeń dyskowa: 1 TB SSD lub więcej</p>
+<p>SQLite jest niezwykle elastyczną bazą danych, która może działać na różnorodnym sprzęcie. Wybór odpowiedniego sprzętu zależy od wymagań aplikacji i oczekiwanej skali danych, ale zawsze warto zainwestować w lepszy sprzęt, aby zapewnić płynną pracę i szybką odpowiedź bazy danych.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">sprawozdanie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Czubaty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../../_sources/DB-Report/Bazy Danych Rozdział 1/Pod_rozdział_2.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

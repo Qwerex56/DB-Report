@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>pg_hba.conf - Sterowanie Dostępem &#8212; sprawozdanie 1.0 - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../../_static/documentation_options.js?v=331e28ce"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../../../genindex.html" />
+    <link rel="search" title="Szukaj" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="pg-hba-conf-sterowanie-dostepem">
+<h1>pg_hba.conf - Sterowanie Dostępem<a class="headerlink" href="#pg-hba-conf-sterowanie-dostepem" title="Link to this heading">¶</a></h1>
+<p>Plik <code class="docutils literal notranslate"><span class="pre">pg_hba.conf</span></code> (PostgreSQL Host-Based Authentication) jest
+kluczowym elementem zarządzania bezpieczeństwem w PostgreSQL. Umożliwia
+on kontrolę dostępu do serwera bazy danych na podstawie adresów IP,
+typów połączeń oraz mechanizmów uwierzytelniania.</p>
+<section id="struktura-pliku-pg-hba-conf">
+<h2>Struktura pliku pg_hba.conf<a class="headerlink" href="#struktura-pliku-pg-hba-conf" title="Link to this heading">¶</a></h2>
+<p>Plik <code class="docutils literal notranslate"><span class="pre">pg_hba.conf</span></code> składa się z linii, z których każda definiuje
+regułę dostępu. Każda linia zawiera następujące pola:</p>
+<ul class="simple">
+<li><p><strong>typ połączenia</strong> - określa, czy połączenie jest lokalne
+(<code class="docutils literal notranslate"><span class="pre">local</span></code>), czy zdalne (<code class="docutils literal notranslate"><span class="pre">host</span></code>).</p></li>
+<li><p><strong>baza danych</strong> - nazwa bazy danych, do której dostęp jest
+kontrolowany.</p></li>
+<li><p><strong>użytkownik</strong> - nazwa użytkownika bazy danych.</p></li>
+<li><p><strong>adres</strong> - adres IP klienta (dla połączeń zdalnych).</p></li>
+<li><p><strong>metoda uwierzytelniania</strong> - określa mechanizm uwierzytelniania,
+który ma być używany.</p></li>
+</ul>
+<p>Przykład reguły w pliku <code class="docutils literal notranslate"><span class="pre">pg_hba.conf</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Typ    Baza danych    Użytkownik    Adres              Metoda</span>
+<span class="n">host</span>     <span class="nb">all</span>            <span class="nb">all</span>           <span class="mf">192.168.1.0</span><span class="o">/</span><span class="mi">24</span>     <span class="n">md5</span>
+</pre></div>
+</div>
+</section>
+<section id="mechanizmy-dostepu">
+<h2>Mechanizmy Dostępu<a class="headerlink" href="#mechanizmy-dostepu" title="Link to this heading">¶</a></h2>
+<p>Plik <code class="docutils literal notranslate"><span class="pre">pg_hba.conf</span></code> definiuje kilka mechanizmów uwierzytelniania,
+takich jak:</p>
+<ul class="simple">
+<li><p><strong>trust</strong> - pozwala na dostęp bez uwierzytelniania. Jest to opcja
+najmniej bezpieczna i powinna być używana tylko w wyjątkowych
+przypadkach.</p></li>
+<li><p><strong>md5</strong> - wykorzystuje hasła zaszyfrowane algorytmem MD5. Jest to
+standardowy mechanizm uwierzytelniania.</p></li>
+<li><p><strong>password</strong> - wymaga podania hasła w postaci nieszyfrowanej. Jest to
+mniej bezpieczne niż <code class="docutils literal notranslate"><span class="pre">md5</span></code>.</p></li>
+<li><p><strong>peer</strong> - umożliwia uwierzytelnianie na podstawie identyfikatora
+systemowego użytkownika.</p></li>
+<li><p><strong>cert</strong> - wykorzystuje certyfikaty SSL do uwierzytelniania.</p></li>
+<li><p><strong>scram-sha-256</strong> - nowoczesny i bezpieczny mechanizm
+uwierzytelniania, który wykorzystuje algorytm SCRAM-SHA-256.</p></li>
+</ul>
+</section>
+<section id="konsekwencje-wyboru-mechanizmu-dostepu">
+<h2>Konsekwencje Wyboru Mechanizmu Dostępu<a class="headerlink" href="#konsekwencje-wyboru-mechanizmu-dostepu" title="Link to this heading">¶</a></h2>
+<p>Wybór odpowiedniego mechanizmu uwierzytelniania ma bezpośredni wpływ na
+bezpieczeństwo systemu. Mechanizmy takie jak <code class="docutils literal notranslate"><span class="pre">trust</span></code> mogą znacznie
+obniżyć poziom bezpieczeństwa, podczas gdy <code class="docutils literal notranslate"><span class="pre">cert</span></code> w połączeniu z SSL
+zapewnia wysoki poziom ochrony danych. Warto dokładnie analizować
+potrzeby i ryzyka związane z każdym mechanizmem uwierzytelniania.</p>
+<p>Na przykład, stosowanie mechanizmu <code class="docutils literal notranslate"><span class="pre">trust</span></code> może być akceptowalne w
+przypadku baz danych używanych wyłącznie w środowisku testowym, gdzie
+bezpieczeństwo nie jest priorytetem. Natomiast w środowisku
+produkcyjnym, gdzie przetwarzane są dane wrażliwe, konieczne jest użycie
+bardziej zaawansowanych mechanizmów, takich jak <code class="docutils literal notranslate"><span class="pre">md5</span></code>,
+<code class="docutils literal notranslate"><span class="pre">scram-sha-256</span></code> lub <code class="docutils literal notranslate"><span class="pre">cert</span></code>.</p>
+</section>
+<section id="przyklady-konfiguracji">
+<h2>Przykłady Konfiguracji<a class="headerlink" href="#przyklady-konfiguracji" title="Link to this heading">¶</a></h2>
+<p>Przykładowe konfiguracje pliku <code class="docutils literal notranslate"><span class="pre">pg_hba.conf</span></code> mogą obejmować różne
+scenariusze dostępu:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pozwól</span> <span class="n">na</span> <span class="n">połączenie</span> <span class="n">dowolnego</span> <span class="n">użytkownika</span> <span class="n">z</span> <span class="n">hostem</span> <span class="mf">192.168.12.10</span> <span class="n">do</span> <span class="n">bazy</span> <span class="n">danych</span> <span class="s2">&quot;postgres&quot;</span><span class="p">,</span> <span class="n">jeśli</span> <span class="n">hasło</span>
+<span class="n">użytkownika</span> <span class="n">jest</span> <span class="n">poprawnie</span> <span class="n">podane</span>
+<span class="c1"># Typ   Baza danych    Użytkownik    Adres              Metoda</span>
+<span class="n">host</span>    <span class="n">postgres</span>       <span class="nb">all</span>           <span class="mf">192.168.12.10</span><span class="o">/</span><span class="mi">32</span>   <span class="n">scram</span><span class="o">-</span><span class="n">sha</span><span class="o">-</span><span class="mi">256</span>
+
+<span class="n">Pozwól</span> <span class="n">dowolnemu</span> <span class="n">użytkownikowi</span> <span class="n">na</span> <span class="n">lokalnym</span> <span class="n">systemie</span> <span class="n">łączyć</span> <span class="n">się</span> <span class="n">z</span> <span class="n">dowolną</span> <span class="n">bazą</span> <span class="n">danych</span>
+<span class="n">używając</span> <span class="n">dowolnej</span> <span class="n">nazwy</span> <span class="n">użytkownika</span> <span class="n">bazy</span> <span class="n">danych</span> <span class="n">za</span> <span class="n">pomocą</span> <span class="n">gniazd</span> <span class="n">Unix</span> <span class="p">(</span><span class="n">domyślnie</span> <span class="n">dla</span> <span class="n">połączeń</span> <span class="n">lokalnych</span><span class="p">)</span>
+<span class="c1"># Typ   Baza danych    Użytkownik    Adres              Metoda</span>
+<span class="n">local</span>   <span class="nb">all</span>            <span class="nb">all</span>                              <span class="n">trust</span>
+
+<span class="n">Pozwól</span> <span class="n">na</span> <span class="n">połączenie</span> <span class="n">używając</span> <span class="n">wyrażenia</span> <span class="n">regularnego</span> <span class="n">dla</span> <span class="n">DATABASE</span><span class="p">,</span> <span class="n">które</span> <span class="n">pozwala</span> <span class="n">na</span> <span class="n">połączenie</span> <span class="n">z</span> <span class="n">bazą</span> <span class="n">danych</span> <span class="n">db1</span><span class="p">,</span> <span class="n">db2</span>
+<span class="n">oraz</span> <span class="n">dowolnymi</span> <span class="n">bazami</span> <span class="n">danych</span> <span class="n">o</span> <span class="n">nazwie</span> <span class="n">zaczynającej</span> <span class="n">się</span> <span class="n">od</span> <span class="s2">&quot;db&quot;</span> <span class="n">i</span> <span class="n">kończącej</span> <span class="n">się</span> <span class="n">liczbą</span> <span class="n">składającą</span> <span class="n">się</span> <span class="n">z</span> <span class="n">dwóch</span> <span class="n">do</span>
+<span class="n">czterech</span> <span class="n">cyfr</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span> <span class="s2">&quot;db1234&quot;</span> <span class="n">lub</span> <span class="s2">&quot;db12&quot;</span><span class="p">)</span><span class="o">.</span>
+<span class="c1"># Typ   Baza danych                Użytkownik    Adres          Metoda</span>
+<span class="n">local</span>   <span class="n">db1</span><span class="p">,</span><span class="s2">&quot;/^db\d{2,4}$&quot;</span><span class="p">,</span><span class="n">db2</span>     <span class="nb">all</span>           <span class="n">localhost</span>      <span class="n">trust</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sprawozdanie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Czubaty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../../../_sources/sprawozdanie/source/rozdzialy/rozdzial1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
