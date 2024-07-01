@@ -6,6 +6,8 @@
 Welcome to sprawozdanie's documentation!
 ========================================
 
+https://github.com/Qwerex56/DB-Report - Link do projektu aplikacji laboratoryjnej
+
 .. toctree::
    :maxdepth: 2
    :caption: Spis treści:
