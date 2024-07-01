@@ -16,3 +16,6 @@
 [submodule "source/MonitDiagnostyka"]
 	path = source/MonitDiagnostyka
 	url = https://github.com/genjurodota/MonitDiagnostyka.git
+[submodule "source/DB-Konfiguracja-bazy-danych"]
+	path = source/DB-Konfiguracja-bazy-danych
+	url = https://github.com/Albandon/DB-Konfiguracja-bazy-danych.git

@@ -13,7 +13,11 @@ Welcome to sprawozdanie's documentation!
    DB-Report/Bazy Danych Rozdział 1/Wstęp.rst
    DB-Report/Bazy Danych Rozdział 1/Pod_rozdział_1.rst
    DB-Report/Bazy Danych Rozdział 1/Pod_rozdział_2.rst
+   DB-Konfiguracja-bazy-danych/source/rozdzialy/rozdzial1
+   DB-Konfiguracja-bazy-danych/source/rozdzialy/rozdzial2
+   DB-Konfiguracja-bazy-danych/source/rozdzialy/rozdzial3
    Sprawozdanie_bazy_p1/main
+   MonitDiagnostyka/cos/Monitorowanie_i_diagnostyka
    rozdzialy/rozdzial1
    rozdzialy/rozdzial2
    rozdzialy/rozdzial3
@@ -26,7 +30,6 @@ Welcome to sprawozdanie's documentation!
    sprawozdanie/source/rozdzialy/rozdzial3
    sprawozdanie/source/rozdzialy/rozdzial4
    sprawozdanie/source/rozdzialy/rozdzial5
-   MonitDiagnostyka/cos/Monitorowanie_i_diagnostyka
    
 ..Indices and tables
 ..==================
