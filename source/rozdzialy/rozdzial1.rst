@@ -1,5 +1,3 @@
-https://github.com/Qwerex56/DB-Report - Link do projektu aplikacji laboratoryjnej
-
 Kontrola i buforowanie połączeń
 ===============================
 
