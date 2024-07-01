@@ -26,6 +26,7 @@ Welcome to sprawozdanie's documentation!
    sprawozdanie/source/rozdzialy/rozdzial3
    sprawozdanie/source/rozdzialy/rozdzial4
    sprawozdanie/source/rozdzialy/rozdzial5
+   MonitDiagnostyka/cos/Monitorowanie_i_diagnostyka
    
 ..Indices and tables
 ..==================

@@ -13,3 +13,6 @@
 [submodule "source/DB-Report"]
 	path = source/DB-Report
 	url = https://github.com/Kitkacy/DB-Report.git
+[submodule "source/MonitDiagnostyka"]
+	path = source/MonitDiagnostyka
+	url = https://github.com/genjurodota/MonitDiagnostyka.git
