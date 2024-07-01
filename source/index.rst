@@ -3,7 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-https://github.com/Qwerex56/DB_Apka - Link do aplikacji mobilnej
+https://github.com/Qwerex56/DB-Report - Link do sprawozdania głównego
+
+https://github.com/Qwerex56/DB_Apka - Link do aplikacji mobilnej - Adrian Czubaty, Kamil Nicoś
 
 Welcome to sprawozdanie's documentation!
 ========================================
