@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="pl" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Tabele - rozmiar, planowanie i monitorowanie &#8212; sprawozdanie 1.0 - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../../_static/documentation_options.js?v=331e28ce"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/translations.js?v=a186e9ce"></script>
+    <link rel="index" title="Indeks" href="../../../genindex.html" />
+    <link rel="search" title="Szukaj" href="../../../search.html" />
+    <link rel="next" title="Podstawowe parametry konfiguracyjne" href="rozdzial3.html" />
+    <link rel="prev" title="Lokalizacja i struktura katalogów" href="rozdzial1.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="tabele-rozmiar-planowanie-i-monitorowanie">
+<h1>Tabele - rozmiar, planowanie i monitorowanie<a class="headerlink" href="#tabele-rozmiar-planowanie-i-monitorowanie" title="Link to this heading">¶</a></h1>
+<section id="rozmiar">
+<h2>Rozmiar<a class="headerlink" href="#rozmiar" title="Link to this heading">¶</a></h2>
+<p>Rozmiar tabel jest kluczowym aspektem zarządzania bazą danych, ponieważ bezpośrednio wpływa na wydajność systemu. Duże tabele mogą prowadzić do dłuższych czasów odpowiedzi na zapytania, zwiększonego zużycia pamięci oraz większych obciążeń wejścia/wyjścia.</p>
+<p><strong>Monitorowanie rozmiaru tabel</strong>
+PostgreSQL dostarcza kilka narzędzi i zapytań SQL, które umożliwiają monitorowanie rozmiaru tabel:</p>
+<ul class="simple">
+<li><p><strong>Rozmiar pojedynczej tabeli:</strong></p></li>
+</ul>
+<p><code class="code highlight sql docutils literal highlight-sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">pg_total_relation_size</span><span class="p">(</span><span class="s1">&#39;nazwa_tabeli&#39;</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">size</span><span class="p">;</span></code></p>
+<p>To zapytanie zwraca przyjazny dla użytkownika rozmiar całej tabeli, wliczając w to dane, indeksy oraz wszelkie towarzyszące pliki.</p>
+<ul class="simple">
+<li><p><strong>Rozmiar wszystkich tabel w bazie danych:</strong></p></li>
+</ul>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">relname</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="ss">&quot;Table&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">pg_total_relation_size</span><span class="p">(</span><span class="n">relid</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="ss">&quot;Size&quot;</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">pg_catalog</span><span class="p">.</span><span class="n">pg_statio_user_tables</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">pg_total_relation_size</span><span class="p">(</span><span class="n">relid</span><span class="p">)</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>To zapytanie zwraca listę wszystkich tabel w bazie danych wraz z ich rozmiarami, posortowaną według rozmiaru.</p>
+<ul class="simple">
+<li><p><strong>Rozmiar indeksów tabeli:</strong></p></li>
+</ul>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">indexrelname</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="ss">&quot;Index&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">pg_relation_size</span><span class="p">(</span><span class="n">indexrelid</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="ss">&quot;Size&quot;</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">pg_stat_user_indexes</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">relname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;nazwa_tabeli&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>To zapytanie zwraca listę indeksów dla określonej tabeli wraz z ich rozmiarami.</p>
+</section>
+<section id="planowanie">
+<h2>Planowanie<a class="headerlink" href="#planowanie" title="Link to this heading">¶</a></h2>
+<p>Planowanie tabel w PostgreSQL obejmuje kilka kluczowych aspektów, takich jak normalizacja, denormalizacja, indeksowanie oraz partycjonowanie.</p>
+<ol class="arabic">
+<li><p><strong>Normalizacja</strong> - Normalizacja to proces organizowania danych w bazie danych w taki sposób, aby zminimalizować redundancję i zapewnić integralność danych. Składa się z kilku form normalnych (NF), z których każda eliminuje różne rodzaje redundancji:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Pierwsza forma normalna (1NF)</strong>: Każda komórka tabeli zawiera pojedynczą wartość, a każde pole jest atomowe.</p></li>
+<li><p><strong>Druga forma normalna (2NF)</strong>: Spełnia wymagania 1NF i zapewnia, że wszystkie kolumny niekluczowe są w pełni zależne od klucza głównego.</p></li>
+<li><p><strong>Trzecia forma normalna (3NF)</strong>: Spełnia wymagania 2NF i zapewnia, że nie ma zależności przejściowych między kolumnami niekluczowymi.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Denormalizacja</strong> - Denormalizacja to proces łączenia tabel, aby poprawić wydajność zapytań kosztem zwiększenia redundancji danych. Stosuje się ją wtedy, gdy zapytania często wymagają złączeń wielu tabel, co może wpływać na wydajność.</p></li>
+<li><p><strong>Indeksowanie</strong> - Indeksy są kluczowe dla optymalizacji wydajności zapytań. Pozwalają one na szybsze wyszukiwanie, sortowanie i filtrowanie danych. W PostgreSQL dostępnych jest kilka typów indeksów:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>B-tree</strong>: Najczęściej używany typ indeksu, odpowiedni dla większości operacji wyszukiwania.</p></li>
+<li><p><strong>Hash</strong>: Szybszy dla operacji równościowych, ale mniej wszechstronny niż B-tree.</p></li>
+<li><p><strong>GIN (Generalized Inverted Index)</strong>: Używany do indeksowania danych wielowartościowych, takich jak tabele JSONB i dokumenty pełnotekstowe.</p></li>
+<li><p><strong>GiST (Generalized Search Tree)</strong>: Używany dla bardziej złożonych typów danych, takich jak geometria.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<p>Przykład tworzenia indeksu B-tree:</p>
+<p><code class="code highlight sql docutils literal highlight-sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_nazwa_kolumny</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">nazwa_tabeli</span><span class="p">(</span><span class="n">nazwa_kolumny</span><span class="p">);</span></code></p>
+<ol class="arabic" start="4">
+<li><p><strong>Partycjonowanie</strong> - Partycjonowanie polega na podzieleniu tabeli na mniejsze, bardziej zarządzalne części zwane partycjami. Może to znacznie poprawić wydajność zapytań, szczególnie w przypadku dużych tabel. PostgreSQL obsługuje kilka typów partycjonowania:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Partycjonowanie zakresowe (Range Partitioning)</strong>: Dzieli dane na zakresy wartości.</p></li>
+<li><p><strong>Partycjonowanie listy (List Partitioning)</strong>: Dzieli dane na podstawie wartości z określonej listy.</p></li>
+<li><p><strong>Partycjonowanie haszowe (Hash Partitioning)</strong>: Dzieli dane na podstawie wartości haszowej.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<p>Przykład tworzenia partycji zakresowej:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="p">(</span>
+<span class="n">order_id</span><span class="w"> </span><span class="nb">serial</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="n">order_date</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="n">customer_id</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="n">amount</span><span class="w"> </span><span class="nb">numeric</span>
+<span class="p">)</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">RANGE</span><span class="w"> </span><span class="p">(</span><span class="n">order_date</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">orders_2022</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">FOR</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;2022-01-01&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;2023-01-01&#39;</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">orders_2023</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">FOR</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;2023-01-01&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;2024-01-01&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="monitorowanie">
+<h2>Monitorowanie<a class="headerlink" href="#monitorowanie" title="Link to this heading">¶</a></h2>
+<p>Dodatkowo możlive jest monitorowanie wydajności tabel za pomocą:</p>
+<ul class="simple">
+<li><p><strong>pg_stat_user_table:</strong></p></li>
+</ul>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">relname</span><span class="p">,</span><span class="w"> </span><span class="n">seq_scan</span><span class="p">,</span><span class="w"> </span><span class="n">seq_tup_read</span><span class="p">,</span><span class="w"> </span><span class="n">idx_scan</span><span class="p">,</span><span class="w"> </span><span class="n">idx_tup_fetch</span><span class="p">,</span><span class="w"> </span><span class="n">n_tup_ins</span><span class="p">,</span><span class="w"> </span><span class="n">n_tup_upd</span><span class="p">,</span><span class="w"> </span><span class="n">n_tup_del</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">pg_stat_user_tables</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>pg_stat_activity:</strong></p></li>
+</ul>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="n">usename</span><span class="p">,</span><span class="w"> </span><span class="n">datname</span><span class="p">,</span><span class="w"> </span><span class="k">state</span><span class="p">,</span><span class="w"> </span><span class="n">query_start</span><span class="p">,</span><span class="w"> </span><span class="n">query</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">pg_stat_activity</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sprawozdanie</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+<p class="caption" role="heading"><span class="caption-text">Spis treści:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../DB-Report/Bazy%20Danych%20Rozdzia%C5%82%201/Pod_rozdzia%C5%82_1.html">Sprzęt dla bazy danych PostgreSQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../DB-Report/Bazy%20Danych%20Rozdzia%C5%82%201/Pod_rozdzia%C5%82_2.html">SQLite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rozdzial1.html">Lokalizacja i struktura katalogów</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tabele - rozmiar, planowanie i monitorowanie</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rozmiar">Rozmiar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#planowanie">Planowanie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitorowanie">Monitorowanie</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rozdzial3.html">Podstawowe parametry konfiguracyjne</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Sprawozdanie_bazy_p1/main.html">Temat 3: Kontrola i Konserwacja</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rozdzialy/rozdzial1.html">Kontrola i buforowanie połączeń</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rozdzialy/rozdzial2.html">Indeks i klaster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rozdzialy/rozdzial3.html">Wydajność</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rozdzialy/rozdzial4.html">Skalowanie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rozdzialy/rozdzial5.html">Replikacja</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rozdzialy/rozdzial6.html">Limity systemu oraz ograniczanie dostępu użytkowników</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rozdzialy/rozdzial7.html">Testy wydajności sprzętu (pamięć, procesor, dyski) na poziomie systemu operacyjnego</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sprawozdanie/source/rozdzialy/rozdzial1.html">pg_hba.conf - Sterowanie Dostępem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sprawozdanie/source/rozdzialy/rozdzial2.html">Uprawnienia Użytkownika</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sprawozdanie/source/rozdzialy/rozdzial3.html">Zarządzanie Użytkownikami a Dane Wprowadzone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sprawozdanie/source/rozdzialy/rozdzial4.html">Zabezpieczenie Połączenia przez SSL/TLS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sprawozdanie/source/rozdzialy/rozdzial5.html">Szyfrowanie Danych</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="rozdzial1.html" title="poprzedni rozdział">Lokalizacja i struktura katalogów</a></li>
+      <li>Next: <a href="rozdzial3.html" title="następny rozdział">Podstawowe parametry konfiguracyjne</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Czubaty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../../../_sources/DB-Konfiguracja-bazy-danych/source/rozdzialy/rozdzial2.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

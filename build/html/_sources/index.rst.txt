@@ -10,10 +10,14 @@ Welcome to sprawozdanie's documentation!
    :maxdepth: 2
    :caption: Spis treści:
    
-   DB-Report/Bazy Danych Rozdział 1/Wstęp.rst
+   DB-Report/Bazy Danych Rozdział 1/Wstep.rst
    DB-Report/Bazy Danych Rozdział 1/Pod_rozdział_1.rst
    DB-Report/Bazy Danych Rozdział 1/Pod_rozdział_2.rst
+   DB-Konfiguracja-bazy-danych/source/rozdzialy/rozdzial1
+   DB-Konfiguracja-bazy-danych/source/rozdzialy/rozdzial2
+   DB-Konfiguracja-bazy-danych/source/rozdzialy/rozdzial3
    Sprawozdanie_bazy_p1/main
+   MonitDiagnostyka/cos/Monitorowanie_i_Diagnostyka
    rozdzialy/rozdzial1
    rozdzialy/rozdzial2
    rozdzialy/rozdzial3
