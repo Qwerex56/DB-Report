@@ -3,10 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+https://github.com/Qwerex56/DB_Apka - Link do aplikacji mobilnej
+
 Welcome to sprawozdanie's documentation!
 ========================================
-
-https://github.com/Qwerex56/DB-Report - Link do projektu aplikacji laboratoryjnej
 
 .. toctree::
    :maxdepth: 2
